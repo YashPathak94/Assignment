@@ -1,0 +1,74 @@
+---
+		  
+##OS_ variables 
+##(OS_AUTH_URL, OS_PROJECT_ID, OS_PROJECT_NAME, OS_USER_DOMAIN_NAME, OS_USERNAME, OS_PASSWORD, and OS_REGION_NAME)
+ ##are set to enable Absible to access the project.		  
+		  
+		  
+- name: Create instance
+  hosts: Node1
+  tasks:
+    - name: Create instance
+      os_server:
+        image: Centos 7 
+        name: Test1
+        key_name: my_keypair1
+        availability_zone: nova1
+        flavor: nodeflavor1
+        state: present
+        network: floatingIPv4
+			  
+- name: Wait a maximum of 300 seconds for port 22 to become open.
+  wait_for:
+  port: 22
+  host: "floatingIPv4"
+  search_regex: OpenSSH
+  delay: 10
+			
+- name: 
+  shell:ifconfig
+  ignore_errors: yes
+			  
+  tasks:
+    - name: Create instance
+      os_server:
+        image: Centos 7 
+        name: Test2
+        key_name: my_keypair2
+        availability_zone: nova2
+        flavor: nodeflavor2
+        state: present
+        network: floatingIPv4
+
+ - name: Wait a maximum of 300 seconds for port 22 to become open.
+   wait_for:
+   port: 22
+   host: "floatingIPv4"
+   search_regex: OpenSSH
+   delay: 10
+            
+ - name:
+   shell:ifconfig
+   ignore_errors: yes
+			  
+  tasks:
+    - name: Create instance
+      os_server:
+        image: Centos 7 
+        name: Test3
+        key_name: my_keypair
+        availability_zone: nova3
+        flavor: nodeflavor3
+        state: present
+        network: floatingIPv4 
+
+ - name: Wait a maximum of 300 seconds for port 22 to become open.
+   wait_for:
+   port: 22
+   host: "floatingIPv4"
+   search_regex: OpenSSH
+   delay: 10
+           
+ - name:
+    shell:ifconfig
+    ignore_errors: yes				
